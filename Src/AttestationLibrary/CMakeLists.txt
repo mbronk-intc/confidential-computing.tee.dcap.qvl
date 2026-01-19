@@ -49,10 +49,7 @@ if(BUILD_DOCS)
     install(DIRECTORY ${DOXYGEN_BUILD_DIR}/ DESTINATION doc)
 endif()
 
-hunter_add_package(OpenSSL)
-find_package(OpenSSL REQUIRED)
-
-hunter_add_package(spdlog)
+find_package(OpenSSL CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 
 file(GLOB SOURCE_FILES src/*.cpp

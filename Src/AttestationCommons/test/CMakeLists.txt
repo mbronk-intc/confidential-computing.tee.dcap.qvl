@@ -33,10 +33,9 @@ else()
     add_compile_options($<$<CONFIG:Release>:-Og>)
 endif()
 
-hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 
-hunter_add_package(GTest)
+find_package(GTest REQUIRED)
 find_package(GTest CONFIG REQUIRED)
 
 enable_testing()

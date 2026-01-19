@@ -28,7 +28,6 @@ cmake_minimum_required(VERSION 3.12)
 
 project(AttestationCommons CXX)
 
-hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 
 file(GLOB SOURCE_FILES src/*.cpp
@@ -61,7 +60,7 @@ target_link_libraries(${PROJECT_NAME}Static PUBLIC
 
 if(BUILD_LOGS)
     message("Logging enabled.")
-    hunter_add_package(spdlog)
+    find_package(spdlog REQUIRED)
     find_package(spdlog CONFIG REQUIRED)
     target_link_libraries(${PROJECT_NAME} PUBLIC
             spdlog::spdlog_header_only

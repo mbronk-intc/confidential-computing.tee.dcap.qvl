@@ -9,3 +9,10 @@ Debug
 Release
 packages
 .vs
+
+# Conan generated files
+conan.lock
+conaninfo.txt
+conanbuildinfo.txt
+graph_info.json
+CMakeUserPresets.json

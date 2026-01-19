@@ -41,8 +41,13 @@ BUILD_ATTESTATION_APP=ON
 BUILD_TESTS=ON
 export MAKEFLAGS=${MAKEFLAGS:-j3}
 
+# Install dependencies with Conan
+echo "Installing dependencies with Conan..."
+conan install . --output-folder=$dir --build=missing -s build_type=$type
+
 mkdir -p $dir && pushd $dir &&
-cmake ../ -DBUILD_ATTESTATION_APP=$BUILD_ATTESTATION_APP \
+cmake ../ -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake \
+             -DBUILD_ATTESTATION_APP=$BUILD_ATTESTATION_APP \
              -DBUILD_TESTS=$BUILD_TESTS \
              -DCMAKE_BUILD_TYPE=$type \
              "$@" \

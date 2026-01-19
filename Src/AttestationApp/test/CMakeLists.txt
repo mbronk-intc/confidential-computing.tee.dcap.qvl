@@ -35,7 +35,7 @@ endif()
 
 enable_testing()
 
-hunter_add_package(GTest)
+find_package(GTest REQUIRED)
 find_package(GTest CONFIG REQUIRED)
 
 file(GLOB SOURCE_FILES *.cpp)

@@ -34,8 +34,13 @@ if getopts b: BULLSEYE_LOC; then
     BULLSEYE_PARAM="-DBULLSEYE_PATH=$OPTARG"
 fi
 
+# Install dependencies with Conan
+echo "Installing dependencies with Conan..."
+conan install . --output-folder=Build/Coverage --build=missing -s build_type=Debug
+
 mkdir -p Build/Coverage && pushd Build/Coverage &&
-cmake ../../ -DBUILD_ATTESTATION_APP=$BUILD_ATTESTATION_APP \
+cmake ../../ -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake \
+             -DBUILD_ATTESTATION_APP=$BUILD_ATTESTATION_APP \
              -DBUILD_TESTS=$BUILD_TESTS \
              -DCMAKE_C_COMPILER=clang \
              -DCMAKE_CXX_COMPILER=clang++ \
