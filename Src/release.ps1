@@ -95,7 +95,18 @@ if ($vs -eq 2022) {
     $generator = "Visual Studio 17 2022"
 }
 
-$cmakeGenerateArguments = @('-DCMAKE_BUILD_TYPE=Release', '-DCMAKE_CONFIGURATION_TYPES="Release"', '-DBUILD_TEE=ON', '-G', $generator, '-A', 'x64')
+# Install dependencies with Conan
+Write-Host "Installing dependencies with Conan..."
+$conanArguments = @('install', '.', '--output-folder=Build', '--build=missing', '-s', 'build_type=Release')
+& conan $conanArguments
+if($LastExitCode -ne 0)
+{
+    Write-Error "Conan install failed: $LastExitCode"
+    Set-Location -Path $cwd
+    exit $LastExitCode
+}
+
+$cmakeGenerateArguments = @('-DCMAKE_TOOLCHAIN_FILE=Build/conan_toolchain.cmake', '-DCMAKE_BUILD_TYPE=Release', '-DCMAKE_CONFIGURATION_TYPES="Release"', '-DBUILD_TEE=ON', '-G', $generator, '-A', 'x64')
 
 if (![string]::IsNullOrWhiteSpace($buildTools)) {
 	$cmakeGenerateArguments += "-T$($buildTools)"

@@ -28,10 +28,9 @@ cmake_minimum_required(VERSION 3.12)
 
 set(SUBPROJECT_NAME ${PROJECT_NAME}_IT)
 
-hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 
-hunter_add_package(GTest)
+find_package(GTest REQUIRED)
 find_package(GTest CONFIG REQUIRED)
 
 enable_testing()

@@ -144,39 +144,16 @@ endif ()
 
 #required to run CMake on windows
 set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
-
-#hunter has to be imported before 'project()'
-set(HUNTER_STATUS_DEBUG OFF) #set to 'ON' to see debug hunter logs
-if(CMAKE_HOST_WIN32)
-    set(HUNTER_ROOT "$ENV{USERPROFILE}/.cache/hunter" CACHE STRING "hunter root" FORCE)
-    string(REPLACE "\\" "/" HUNTER_ROOT ${HUNTER_ROOT})
-else()
-    set(HUNTER_ROOT "$ENV{HOME}/.cache/hunter" CACHE STRING "hunter root" FORCE)
-endif()
-set(HUNTER_BINARY_DIR "${HUNTER_ROOT}")
-#set(HUNTER_BINARY_DIR ${CMAKE_SOURCE_DIR}/ThirdParty/hunter) # in case of Hunter build problems
-#If windows build fails, consider changing HUNTER_ROOT dir to shorter one, by either modifying its value or commenting out the line below:
-#set(HUNTER_ROOT "${CMAKE_SOURCE_DIR}/ThirdParty/hunter" CACHE STRING "hunter root" FORCE)
-
-message("HUNTER_ROOT=${HUNTER_ROOT}")
-message("HUNTER_BINARY_DIR=${HUNTER_BINARY_DIR}")
-
-option(HUNTER_NO_TOOLCHAIN_ID_RECALCULATION "No Toolchain-ID recalculation" ON)
-option(HUNTER_KEEP_PACKAGE_SOURCES "Keep third party sources" ON)
-
-include("${CMAKE_CURRENT_LIST_DIR}/ThirdParty/hunter/HunterGate.cmake")
-HunterGate(
-		URL "https://github.com/cpp-pm/hunter/archive/v0.25.8.tar.gz"
-		SHA1 "26c79d587883ec910bce168e25f6ac4595f97033"
-		FILEPATH "${CMAKE_SOURCE_DIR}/ThirdParty/hunter/config.cmake"
-)
-
 project(SgxEcdsaAttestation)
+
+
+
+# Conan integration
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
 
 include(CTest)
 
-message("HUNTER_GATE_ROOT: ${HUNTER_GATE_ROOT}")
-file(COPY "${CMAKE_SOURCE_DIR}/ThirdParty/hunter/openssl/hunter.cmake" DESTINATION "${HUNTER_ROOT}/_Base/Download/Hunter/0.25.3/0dfbc2c/Unpacked/cmake/projects/OpenSSL/")
 
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 set(CMAKE_THREAD_LIBS_INIT "-lpthread") # Could NOT find Threads (missing: Threads_FOUND) related workarounds

@@ -1,0 +1,15 @@
+[requires]
+openssl/3.0.12
+gtest/1.14.0
+spdlog/1.14.1
+fmt/10.2.1
+
+[generators]
+CMakeDeps
+CMakeToolchain
+
+[options]
+openssl/*:shared=False
+openssl/*:no_tests=True
+gtest/*:shared=False
+spdlog/*:shared=False

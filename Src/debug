@@ -30,8 +30,13 @@ BUILD_TESTS=${BUILD_TESTS:-ON}
 BUILD_DOCS=${BUILD_DOCS:-OFF}
 export MAKEFLAGS=${MAKEFLAGS:-j3}
 
+# Install dependencies with Conan
+echo "Installing dependencies with Conan..."
+conan install . --output-folder=cmake-build-debug --build=missing -s build_type=Debug
+
 mkdir -p cmake-build-debug && pushd cmake-build-debug &&
-cmake ../ -DBUILD_DOCS=$BUILD_DOCS \
+cmake ../ -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake \
+          -DBUILD_DOCS=$BUILD_DOCS \
           -DBUILD_TESTS=$BUILD_TESTS \
           -DCMAKE_BUILD_TYPE=Debug \
           -G "Unix Makefiles" \

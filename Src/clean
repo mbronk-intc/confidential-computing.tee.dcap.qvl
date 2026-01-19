@@ -45,4 +45,11 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# Clean Conan-generated files
+echo "Cleaning Conan-generated files..."
+rm -f ${DIR}/conan.lock
+rm -f ${DIR}/conaninfo.txt
+rm -f ${DIR}/conanbuildinfo.txt
+rm -f ${DIR}/graph_info.json
+
 rm -rf ${DIR}/Build ${DIR}/cmake-build-debug ${DIR}/cmake-build-release

@@ -28,8 +28,8 @@ project(ThirdParty)
 
 include(ExternalProject)
 
-hunter_add_package(OpenSSL)
-hunter_add_package(GTest)
+find_package(OpenSSL REQUIRED)
+find_package(GTest REQUIRED)
 
 add_library(rapidjson INTERFACE)
 file(GLOB RAPIDJSON_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/rapidjson/include/rapidjson/*.h)
