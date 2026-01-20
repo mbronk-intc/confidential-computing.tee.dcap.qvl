@@ -1,0 +1,76 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 23,
+        "patch": 0
+    },
+    "include": [
+        "ConanPresets.json"
+    ],
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "Default Config",
+            "description": "Default build using Ninja generator",
+            "binaryDir": "${sourceDir}/cmake-build-${presetName}",
+            "inherits": "conan-default"
+        },
+        {
+            "name": "release",
+            "displayName": "Release",
+            "description": "Release build with optimizations",
+            "binaryDir": "${sourceDir}/cmake-build-release",
+            "inherits": "conan-release",
+            "cacheVariables": {
+                "BUILD_TESTS": "ON",
+                "BUILD_DOCS": "OFF",
+                "BUILD_ATTESTATION_APP": "ON"
+            }
+        },
+        {
+            "name": "debug",
+            "displayName": "Debug",
+            "description": "Debug build with debugging symbols",
+            "binaryDir": "${sourceDir}/cmake-build-debug",
+            "inherits": "conan-debug",
+            "cacheVariables": {
+                "BUILD_TESTS": "ON",
+                "BUILD_DOCS": "OFF",
+                "BUILD_ATTESTATION_APP": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "release",
+            "displayName": "Release",
+            "configurePreset": "release",
+            "description": "Build release configuration"
+        },
+        {
+            "name": "debug",
+            "displayName": "Debug",
+            "configurePreset": "debug",
+            "description": "Build debug configuration"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "release",
+            "displayName": "Release Tests",
+            "configurePreset": "release",
+            "output": {
+                "outputOnFailure": true
+            }
+        },
+        {
+            "name": "debug",
+            "displayName": "Debug Tests",
+            "configurePreset": "debug",
+            "output": {
+                "outputOnFailure": true
+            }
+        }
+    ]
+}

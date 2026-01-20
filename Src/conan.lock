@@ -1,0 +1,10 @@
+{
+    "version": "0.5",
+    "requires": [
+        "openssl/3.0.12#b587a27325fc938770284ed7fc4cb3b1",
+        "spdlog/1.14.1#88827de0e3f98a83e5d29c390be6fc1e",
+        "fmt/10.2.1#3d7ffe7e8bf62d3e3c0dbbffc9c5d0d4"
+    ],
+    "build_requires": [],
+    "python_requires": []
+}
